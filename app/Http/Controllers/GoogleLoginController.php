@@ -30,7 +30,7 @@ class GoogleLoginController extends Controller
             $newUser = User::create([
                 'name' => $user->name,
                 'email' => $user->email,
-                'google_id' => $user->id,
+                'facebook_id' => $user->id,
                 'profile_picture' => $user->avatar,
                 'password' => encrypt('123456dummy')
             ]);
