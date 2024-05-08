@@ -4,32 +4,19 @@ use App\Http\Controllers\FacebookLoginController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GoogleLoginController;
+use App\Http\Controllers\SocialiteController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-//google login
-Route::get('/login/google', [GoogleLoginController::class, 'redirectToGoogle'])->name('auth.google');
-Route::get('/login/google/callback', [GoogleLoginController::class, 'handleGoogleCallback']);
+Route::get('auth/{provider}', [SocialiteController::class, 'loginSocial'])
+    ->name('socialite.auth');
 
-// facebook login
-Route::get('/auth/facebook', [FacebookLoginController::class, 'redirectToFacebook'])->name('auth.facebook');
-Route::get('/auth/facebook/callback', [FacebookLoginController::class, 'handleFacebookCallback']);
-
+Route::get('auth/{provider}/callback', [SocialiteController::class, 'callbackSocial'])
+    ->name('socialite.callback');
 
 // email verification
 Route::get('/email/verify', function () {

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
@@ -32,7 +33,8 @@ class GoogleLoginController extends Controller
                 'email' => $user->email,
                 'google_id' => $user->id,
                 'profile_picture' => $user->avatar_original,
-                'password' => encrypt('123456dummy')
+                'password' => encrypt('123456dummy'),
+                'email_verified_at' => Carbon::now()
             ]);
             Auth::login($newUser);
             return redirect()->intended('dashboard');

@@ -18,8 +18,10 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('profile_picture', 500)->nullable();
-            $table->string('google_id')->nullable();
+            $table->string('google_id')->nullable()->unique();
             $table->string('facebook_id')->nullable()->unique();
+            $table->string('github_id')->nullable()->unique();
+            $table->string('linkedin_id')->nullable()->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
