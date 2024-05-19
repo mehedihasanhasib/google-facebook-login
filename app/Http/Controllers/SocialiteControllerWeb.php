@@ -14,11 +14,7 @@ class SocialiteController extends Controller
 {
     public function loginSocial(string $provider)
     {
-        return response()->json([
-            'redirectUrl' => Socialite::driver($provider)->stateless()->redirect()->getTargetUrl()
-        ]);
-
-        // return Socialite::driver($provider)->redirect();
+        return Socialite::driver($provider)->redirect();
     }
 
     public function callbackSocial(string $provider)
@@ -43,7 +39,7 @@ class SocialiteController extends Controller
             ]);
             Auth::login($newUser);
 
-            return Response::view('close_popup', ['redirectUrl' => 'http://localhost:3000/dashboard']);
+            return redirect()->route('dashboard');
         }
     }
 }

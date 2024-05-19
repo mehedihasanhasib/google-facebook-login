@@ -1,10 +1,8 @@
 <?php
 
-use App\Http\Controllers\FacebookLoginController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\GoogleLoginController;
-use App\Http\Controllers\SocialiteController;
+use App\Http\Controllers\SocialiteControllerWeb;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 
@@ -12,26 +10,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('auth/{provider}', [SocialiteController::class, 'loginSocial'])
+Route::get('auth/{provider}', [SocialiteControllerWeb::class, 'loginSocial'])
     ->name('socialite.auth');
 
-Route::get('auth/{provider}/callback', [SocialiteController::class, 'callbackSocial'])
+Route::get('auth/{provider}/callback', [SocialiteControllerWeb::class, 'callbackSocial'])
     ->name('socialite.callback');
 
-// email verification
-Route::get('/email/verify', function () {
-    return view('auth.verify-email');
-})->middleware('auth')->name('verification.notice');
-
-Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
-    $request->fulfill();
-    return redirect('/home');
-})->middleware(['auth', 'signed'])->name('verification.verify');
-
-Route::post('/email/verification-notification', function (Request $request) {
-    $request->user()->sendEmailVerificationNotification();
-    return back()->with('message', 'Verification link sent!');
-})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
 // dashboard
 Route::get('/dashboard', function () {

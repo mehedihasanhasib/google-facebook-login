@@ -18,7 +18,8 @@ Route::get('/test', function () {
 });
 
 Route::get('auth/{provider}', [SocialiteController::class, 'loginSocial'])
-    ->name('socialite.auth');
+	->middleware(['web']);
 
 Route::get('auth/{provider}/callback', [SocialiteController::class, 'callbackSocial'])
-    ->name('socialite.callback');
+	->middleware(['web']);
+    

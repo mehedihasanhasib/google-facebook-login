@@ -22,6 +22,8 @@ return new class extends Migration
             $table->string('facebook_id')->nullable()->unique();
             $table->string('github_id')->nullable()->unique();
             $table->string('linkedin_id')->nullable()->unique();
+            $table->string('twitter_id')->nullable()->unique();
+            $table->string('slack_id')->nullable()->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
